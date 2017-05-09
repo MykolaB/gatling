@@ -15,12 +15,13 @@
  */
 package io.gatling.core
 
-import io.gatling.core.body.{ ElFileBodies, PebbleFileBodies, RawFileBodies }
+import io.gatling.core.body.{ElFileBodies, PebbleFileBodies, RawFileBodies}
 import io.gatling.core.check.extractor.css.CssSelectors
-import io.gatling.core.check.extractor.jsonpath.{ JsonPaths, OldJsonPathExtractorFactory }
-import io.gatling.core.check.extractor.regex.{ OldRegexExtractorFactory, Patterns }
+import io.gatling.core.check.extractor.jsonpath.{JsonPaths, OldJsonPathExtractorFactory}
+import io.gatling.core.check.extractor.regex.{OldRegexExtractorFactory, Patterns}
 import io.gatling.core.check.extractor.xpath.XmlParsers
 import io.gatling.core.config.GatlingConfiguration
+import io.gatling.core.feeder.StrictSeparatedValuesParser
 import io.gatling.core.json.JsonParsers
 
 trait CoreDefaultImplicits {
@@ -31,6 +32,8 @@ trait CoreDefaultImplicits {
 
   implicit lazy val defaultJsonParsers: JsonParsers = JsonParsers()
   implicit lazy val defaultJsonPaths = new JsonPaths
+
+  implicit lazy val defaultSeparatedValueParser = StrictSeparatedValuesParser;
 
   implicit lazy val defaultXmlParsers = new XmlParsers
 

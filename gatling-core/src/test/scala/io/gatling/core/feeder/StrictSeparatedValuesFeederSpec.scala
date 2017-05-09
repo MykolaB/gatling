@@ -22,9 +22,10 @@ import io.gatling.core.config.GatlingConfiguration
 
 import org.mockito.Mockito._
 
-class SeparatedValuesFeederSpec extends BaseSpec with FeederSupport {
+class StrictSeparatedValuesFeederSpec extends BaseSpec with FeederSupport {
 
   implicit val configuration = GatlingConfiguration.loadForTest()
+  implicit val separatedValuesParser = StrictSeparatedValuesParser
 
   def scenarioContext(cfg: GatlingConfiguration = configuration) = {
     val ctx = mock[ScenarioContext]
@@ -75,8 +76,8 @@ class SeparatedValuesFeederSpec extends BaseSpec with FeederSupport {
   }
 
   "SeparatedValuesParser.stream" should "throw an exception when provided with bad resource" in {
-    import io.gatling.core.feeder.StrictSeparatedValuesParser._
+    import io.gatling.core.feeder.SeparatedValuesParser._
     an[Exception] should be thrownBy
-      iterator(this.getClass.getClassLoader.getResourceAsStream("empty.csv"), CommaSeparator, quoteChar = '\'', escapeChar = 0)
+      StrictSeparatedValuesParser.iterator(this.getClass.getClassLoader.getResourceAsStream("empty.csv"), CommaSeparator, quoteChar = '\'', escapeChar = 0)
   }
 }
