@@ -28,12 +28,12 @@ import io.gatling.core.util.Resource
 
 class JsonFeederFileParser(implicit jsonParsers: JsonParsers) {
 
-  def parse(resource: Resource): IndexedSeq[Record[Any]] =
+  def parse(resource: Resource): Seq[Record[Any]] =
     withCloseable(resource.inputStream) { is =>
       stream(is).toVector
     }
 
-  def url(url: String): IndexedSeq[Record[Any]] =
+  def url(url: String): Seq[Record[Any]] =
     withCloseable(new URL(url).openStream) { is =>
       stream(is).toVector
     }

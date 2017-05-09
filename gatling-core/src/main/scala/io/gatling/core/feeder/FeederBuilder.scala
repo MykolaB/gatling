@@ -26,11 +26,11 @@ case class FeederWrapper[T](feeder: Feeder[T]) extends FeederBuilder[T] {
 }
 
 case class RecordSeqFeederBuilder[T](
-    records: IndexedSeq[Record[T]],
-    // [fl]
-    //
-    // [fl]
-    strategy: FeederStrategy = Queue
+                                      records: Seq[Record[T]],
+                                      // [fl]
+                                      //
+                                      // [fl]
+                                      strategy: FeederStrategy = Queue
 ) extends FeederBuilder[T] {
 
   def convert(conversion: PartialFunction[(String, T), Any]): RecordSeqFeederBuilder[Any] = {

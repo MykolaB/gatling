@@ -21,16 +21,16 @@ import io.gatling.commons.util.RoundRobin
 import io.gatling.core.structure.ScenarioContext
 
 sealed trait FeederStrategy {
-  def feeder[T](records: IndexedSeq[Record[T]], ctx: ScenarioContext): Feeder[T]
+  def feeder[T](records: Seq[Record[T]], ctx: ScenarioContext): Feeder[T]
 }
 
 case object Queue extends FeederStrategy {
-  def feeder[T](records: IndexedSeq[Record[T]], ctx: ScenarioContext): Feeder[T] =
+  def feeder[T](records: Seq[Record[T]], ctx: ScenarioContext): Feeder[T] =
     records.iterator
 }
 
 case object Random extends FeederStrategy {
-  def feeder[T](records: IndexedSeq[Record[T]], ctx: ScenarioContext): Feeder[T] =
+  def feeder[T](records: Seq[Record[T]], ctx: ScenarioContext): Feeder[T] =
     new Feeder[T] {
       def hasNext = records.length != 0
       def next = records(ThreadLocalRandom.current.nextInt(records.length))
@@ -38,11 +38,11 @@ case object Random extends FeederStrategy {
 }
 
 case object Shuffle extends FeederStrategy {
-  def feeder[T](records: IndexedSeq[Record[T]], ctx: ScenarioContext): Feeder[T] =
+  def feeder[T](records: Seq[Record[T]], ctx: ScenarioContext): Feeder[T] =
     scala.util.Random.shuffle(records).iterator
 }
 
 case object Circular extends FeederStrategy {
-  def feeder[T](records: IndexedSeq[Record[T]], ctx: ScenarioContext): Feeder[T] =
+  def feeder[T](records: Seq[Record[T]], ctx: ScenarioContext): Feeder[T] =
     RoundRobin(records)
 }

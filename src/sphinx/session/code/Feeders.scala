@@ -155,11 +155,11 @@ class Feeders {
     import java.util.concurrent.ThreadLocalRandom
 
     // index records by project
-    val recordsByProject: Map[String, IndexedSeq[Record[String]]] =
+    val recordsByProject: Map[String, Seq[Record[String]]] =
       csv("projectIssue.csv").records.groupBy{ record => record("project") }
 
     // convert the Map values to get only the issues instead of the full records
-    val issuesByProject: Map[String, IndexedSeq[String]] =
+    val issuesByProject: Map[String, Seq[String]] =
       recordsByProject.mapValues{ records => records.map {record => record("issue")} }
 
     // inject project
