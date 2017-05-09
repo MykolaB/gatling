@@ -25,18 +25,20 @@ import io.gatling.core.util.Resource
 import com.fasterxml.jackson.databind.{MapperFeature, ObjectReader}
 import com.fasterxml.jackson.dataformat.csv.{CsvMapper, CsvSchema}
 
-object SeparatedValuesParser {
+abstract class AbstractSeparatedValuesParser {
 
   val CommaSeparator = ','
   val SemicolonSeparator = ';'
   val TabulationSeparator = '\t'
+  val asSeq: Iterator[Record[String]] => Seq[Record[String]]
 
-  def parse(resource: Resource, columnSeparator: Char, quoteChar: Char, escapeChar: Char)(implicit configuration: GatlingConfiguration): Seq[Record[String]] =
+  def parse(resource: Resource, columnSeparator: Char, quoteChar: Char, escapeChar: Char)
+           (implicit configuration: GatlingConfiguration): Seq[Record[String]] =
     withCloseable(resource.inputStream) { source =>
-      stream(source, columnSeparator, quoteChar, escapeChar).toVector
+      asSeq(iterator(source, columnSeparator, quoteChar, escapeChar))
     }
 
-  def stream(is: InputStream, columnSeparator: Char, quoteChar: Char, escapeChar: Char): Iterator[Record[String]] = {
+  def iterator(is: InputStream, columnSeparator: Char, quoteChar: Char, escapeChar: Char): Iterator[Record[String]] = {
 
     val mapper = new CsvMapper().disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
     val schema = CsvSchema.emptySchema.withHeader.withColumnSeparator(columnSeparator).withQuoteChar(quoteChar).withEscapeChar(escapeChar)
@@ -50,4 +52,12 @@ object SeparatedValuesParser {
 
     it.map(_.asScala.toMap)
   }
+}
+
+object StrictSeparatedValuesParser extends AbstractSeparatedValuesParser {
+  override val asSeq: Iterator[Record[String]] => Seq[Record[String]] = _.toVector
+}
+
+object LazySeparatedValuesParser extends AbstractSeparatedValuesParser {
+  override val asSeq: Iterator[Record[String]] => Seq[Record[String]] = _.toStream
 }

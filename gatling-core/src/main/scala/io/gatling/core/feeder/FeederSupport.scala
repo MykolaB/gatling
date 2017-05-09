@@ -17,7 +17,7 @@ package io.gatling.core.feeder
 
 import io.gatling.commons.validation._
 import io.gatling.core.config.GatlingConfiguration
-import io.gatling.core.feeder.SeparatedValuesParser._
+import io.gatling.core.feeder.StrictSeparatedValuesParser._
 import io.gatling.core.json.JsonParsers
 import io.gatling.core.util.Resource
 
@@ -41,7 +41,7 @@ trait FeederSupport {
     separatedValues(Resource.feeder(fileName), separator, quoteChar, escapeChar)
 
   def separatedValues(resource: Validation[Resource], separator: Char, quoteChar: Char, escapeChar: Char)(implicit configuration: GatlingConfiguration): RecordSeqFeederBuilder[String] =
-    feederBuilder(resource)(SeparatedValuesParser.parse(_, separator, quoteChar, escapeChar))
+    feederBuilder(resource)(StrictSeparatedValuesParser.parse(_, separator, quoteChar, escapeChar))
 
   def jsonFile(fileName: String)(implicit configuration: GatlingConfiguration, jsonParsers: JsonParsers): RecordSeqFeederBuilder[Any] = jsonFile(Resource.feeder(fileName))
   def jsonFile(resource: Validation[Resource])(implicit jsonParsers: JsonParsers): RecordSeqFeederBuilder[Any] =

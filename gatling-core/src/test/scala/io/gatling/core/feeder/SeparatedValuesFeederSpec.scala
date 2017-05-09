@@ -75,8 +75,8 @@ class SeparatedValuesFeederSpec extends BaseSpec with FeederSupport {
   }
 
   "SeparatedValuesParser.stream" should "throw an exception when provided with bad resource" in {
-    import io.gatling.core.feeder.SeparatedValuesParser._
+    import io.gatling.core.feeder.StrictSeparatedValuesParser._
     an[Exception] should be thrownBy
-      stream(this.getClass.getClassLoader.getResourceAsStream("empty.csv"), CommaSeparator, quoteChar = '\'', escapeChar = 0)
+      iterator(this.getClass.getClassLoader.getResourceAsStream("empty.csv"), CommaSeparator, quoteChar = '\'', escapeChar = 0)
   }
 }
