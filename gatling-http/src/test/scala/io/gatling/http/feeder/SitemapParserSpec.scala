@@ -46,12 +46,12 @@ class SitemapParserSpec extends BaseSpec with ValidationValues {
   }
 
   it should "input stream is closed on error" in {
-    val fileIs = mock[InputStream]
+    val fileIs = Stream(mock[InputStream])
     val resource = mock[Resource]
-    when(resource.inputStream).thenReturn(fileIs)
-    when(fileIs.read()) thenThrow new IOException
-    when(fileIs.read(any[Array[Byte]])) thenThrow new IOException
-    when(fileIs.read(any[Array[Byte]], anyInt, anyInt)) thenThrow new IOException
+    when(resource.inputStreams).thenReturn(fileIs)
+    when(fileIs(0).read()) thenThrow new IOException
+    when(fileIs(0).read(any[Array[Byte]])) thenThrow new IOException
+    when(fileIs(0).read(any[Array[Byte]], anyInt, anyInt)) thenThrow new IOException
 
     a[IOException] shouldBe thrownBy(SitemapParser.parse(resource).toArray)
   }

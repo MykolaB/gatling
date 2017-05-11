@@ -45,9 +45,9 @@ sealed abstract class SeparatedValuesParser() {
 
   def parse(resource: Resource, columnSeparator: Char, quoteChar: Char, escapeChar: Char)
            (implicit configuration: GatlingConfiguration): Seq[Record[String]] =
-    withCloseable(resource.inputStream) { source =>
+    resource.inputStreams.flatMap(withCloseable(_) { source =>
       asSeq(iterator(source, columnSeparator, quoteChar, escapeChar))
-    }
+    })
 }
 
 object SeparatedValuesParser {

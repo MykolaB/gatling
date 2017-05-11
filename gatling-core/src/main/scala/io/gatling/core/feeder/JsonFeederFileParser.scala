@@ -29,9 +29,9 @@ import io.gatling.core.util.Resource
 class JsonFeederFileParser(implicit jsonParsers: JsonParsers) {
 
   def parse(resource: Resource): Seq[Record[Any]] =
-    withCloseable(resource.inputStream) { is =>
+    resource.inputStreams.flatMap(withCloseable(_) { is =>
       stream(is).toVector
-    }
+    })
 
   def url(url: String): Seq[Record[Any]] =
     withCloseable(new URL(url).openStream) { is =>
