@@ -25,6 +25,8 @@ import io.gatling.core.util.Resource
 import com.fasterxml.jackson.databind.{ MapperFeature, ObjectReader }
 import com.fasterxml.jackson.dataformat.csv.{ CsvMapper, CsvSchema }
 
+import scalaz.stream._
+
 abstract class AbstractSeparatedValuesParser {
 
   val CommaSeparator = ','
