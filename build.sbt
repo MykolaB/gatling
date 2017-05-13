@@ -14,6 +14,7 @@ import sbt._
 
 lazy val root = Project("gatling-parent", file("."))
   .enablePlugins(SonatypeReleasePlugin)
+  .disablePlugins(AutomateHeaderPlugin, HeaderPlugin)
   .dependsOn(Seq(commons, core, http, jms, jdbc, redis).map(_ % "compile->compile;test->test"): _*)
   .aggregate(commons, core, jdbc, redis, httpAhc, http, jms, charts, metrics, app, recorder, testFramework, bundle, compiler)
   .settings(basicSettings: _*)
@@ -25,6 +26,7 @@ lazy val root = Project("gatling-parent", file("."))
 
 def gatlingModule(id: String) = Project(id, file(id))
   .enablePlugins(SonatypeReleasePlugin)
+  .disablePlugins(AutomateHeaderPlugin, HeaderPlugin)
   .settings(gatlingModuleSettings: _*)
 
 lazy val commons = gatlingModule("gatling-commons")

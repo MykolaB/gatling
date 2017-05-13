@@ -39,17 +39,6 @@ class LazySeparatedValuesFeederSpec extends BaseSpec with FeederSupport {
     data should not be Array(Map("foo" -> "hello", "bar" -> "world"))
   }
 
-  it should "handle large file" in {
-    Runtime.getRuntime.gc();
-    val initMemory = Runtime.getRuntime.totalMemory();
-    println("Init memory: " + initMemory);
-    val sum = csv("sampleLarge.csv").build(scenarioContext()).map(r => r.head._1.length).sum
-    sum should be >= 0
-    val finalMemory = Runtime.getRuntime.totalMemory();
-    println("Final memory: " + finalMemory);
-    println("delta: " + (finalMemory - initMemory));
-  }
-
   it should "handle file with quote char" in {
     val data = csv("sample2.csv").build(scenarioContext()).toArray
     data shouldBe Array(Map("foo" -> "hello", "bar" -> "world"))

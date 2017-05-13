@@ -80,32 +80,25 @@ object Resource {
 sealed trait Resource {
   def name: String = location.path.substring(location.path.lastIndexOf(File.separatorChar))
   def location: Location
-  def inputStreams: Stream[InputStream]
+  def inputStream: InputStream
   def file: File
-  def string(charset: Charset) = inputStreams.foldLeft("")((s, is) => s + withCloseable(is){iis => iis.toString(charset)})
+  def string(charset: Charset) = withCloseable(inputStream) { _.toString(charset) }
   def bytes: Array[Byte]
 }
 
 case class FileResource(location: Location, file: File) extends Resource {
-  def inputStreams = Stream(new FileInputStream(file))
+  def inputStream = new FileInputStream(file)
   def bytes: Array[Byte] = file.toByteArray
 }
-
-case class MultiFileResource(location: Location, files: Seq[File]) extends Resource {
-  def file = files.head
-  def inputStreams = files.map(new FileInputStream(_)).toStream
-  def bytes: Array[Byte] = file.toByteArray
-}
-
 
 case class ArchiveResource(location: Location, url: URL, extension: String) extends Resource {
 
-  def inputStreams = Stream(url.openStream)
+  def inputStream = url.openStream
 
   def file = {
     val tempFile = File.createTempFile("gatling", "." + extension)
 
-    withCloseable(inputStreams.head) { is =>
+    withCloseable(inputStream) { is =>
       withCloseable(new FileOutputStream(tempFile, false)) { os =>
         is.copyTo(os)
       }
@@ -113,5 +106,5 @@ case class ArchiveResource(location: Location, url: URL, extension: String) exte
     tempFile
   }
 
-  def bytes: Array[Byte] = withCloseable(inputStreams.head)(_.toByteArray())
+  def bytes: Array[Byte] = withCloseable(inputStream)(_.toByteArray())
 }

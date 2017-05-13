@@ -40,9 +40,9 @@ object SitemapParser {
    * @return a record for each url described in a sitemap file
    */
   def parse(resource: Resource): IndexedSeq[Record[String]] = {
-    resource.inputStreams.flatMap(withCloseable(_) { stream: InputStream =>
+    withCloseable(resource.inputStream) { stream: InputStream =>
       parse(stream)
-    }).toVector;
+    }
   }
 
   /**

@@ -30,7 +30,10 @@ class ElFileBodies(implicit configuration: GatlingConfiguration) {
   val charset = configuration.core.charset
 
   private def compileFile(path: String): Validation[Expression[String]] =
-    Resource.body(path).map { _.string(charset)
+    Resource.body(path).map { resource =>
+      withCloseable(resource.inputStream) {
+        _.toString(charset)
+      }
     }.map(_.el[String])
 
   private val elFileBodyStringCache: LoadingCache[String, Validation[Expression[String]]] =
