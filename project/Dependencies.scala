@@ -41,6 +41,7 @@ object Dependencies {
   private val testInterface                 = "org.scala-sbt"                          % "test-interface"                % "1.0"
   private val pebble                        = "com.mitchellbosecke"                    % "pebble"                        % "2.3.0"
   private val findbugs                      = "com.google.code.findbugs"               % "jsr305"                        % "3.0.1"
+  private val scalazStream                  = "org.scalaz.stream       "              %% "scalaz-stream"                 % "0.8.5"
 
   /***********************/
   /** Test dependencies **/
@@ -67,7 +68,7 @@ object Dependencies {
     Seq(scalaReflect(scalaVersion), config, fastring, boopickle, quicklens, java8Compat, ahcNettyUtils, pebble) ++ loggingDeps ++ testDeps
 
   val coreDependencies =
-    Seq(akkaActor, akkaSlf4j, jacksonCsv, boopickle, java8Compat, caffeine, scalaParserCombinators, scopt, findbugs) ++
+    Seq(akkaActor, akkaSlf4j, jacksonCsv, boopickle, java8Compat, caffeine, scalaParserCombinators, scopt, findbugs, scalazStream) ++
       parserDeps ++ testDeps
 
   val redisDependencies = redisClient +: testDeps

@@ -16,14 +16,14 @@
 package io.gatling.core.feeder
 
 import java.io.InputStream
-import java.util.{Map => JMap}
+import java.util.{ Map => JMap }
 
 import scala.collection.JavaConverters._
 import io.gatling.commons.util.Io._
 import io.gatling.core.config.GatlingConfiguration
 import io.gatling.core.util.Resource
-import com.fasterxml.jackson.databind.{MapperFeature, ObjectReader}
-import com.fasterxml.jackson.dataformat.csv.{CsvMapper, CsvSchema}
+import com.fasterxml.jackson.databind.{ MapperFeature, ObjectReader }
+import com.fasterxml.jackson.dataformat.csv.{ CsvMapper, CsvSchema }
 
 abstract class AbstractSeparatedValuesParser {
 
@@ -32,8 +32,7 @@ abstract class AbstractSeparatedValuesParser {
   val TabulationSeparator = '\t'
   val asSeq: Iterator[Record[String]] => Seq[Record[String]]
 
-  def parse(resource: Resource, columnSeparator: Char, quoteChar: Char, escapeChar: Char)
-           (implicit configuration: GatlingConfiguration): Seq[Record[String]] =
+  def parse(resource: Resource, columnSeparator: Char, quoteChar: Char, escapeChar: Char)(implicit configuration: GatlingConfiguration): Seq[Record[String]] =
     withCloseable(resource.inputStream) { source =>
       asSeq(iterator(source, columnSeparator, quoteChar, escapeChar))
     }
