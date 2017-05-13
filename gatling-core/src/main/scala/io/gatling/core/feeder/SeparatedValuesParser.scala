@@ -23,8 +23,6 @@ import io.gatling.core.config.GatlingConfiguration
 import io.gatling.core.util.Resource
 import com.fasterxml.jackson.databind.{MapperFeature, ObjectReader}
 import com.fasterxml.jackson.dataformat.csv.{CsvMapper, CsvSchema}
-
-import scala.collection.immutable.PagedSeq
 import scalaz.stream.{Process, io}
 
 object SeparatedValuesParser {
