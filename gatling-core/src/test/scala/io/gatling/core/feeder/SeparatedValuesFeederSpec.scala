@@ -44,6 +44,7 @@ class SeparatedValuesFeederSpec extends BaseSpec with FeederSupport {
     val initMemory = Runtime.getRuntime.totalMemory();
     println("Init memory: " + initMemory);
     val sum = csv("sampleLarge.csv").build(scenarioContext()).map(r => r.head._1.length).sum
+    println(sum)
     sum should be >= 0
     val finalMemory = Runtime.getRuntime.totalMemory();
     println("Final memory: " + finalMemory);
