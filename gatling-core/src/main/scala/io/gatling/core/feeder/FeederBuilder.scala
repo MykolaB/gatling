@@ -26,7 +26,7 @@ case class FeederWrapper[T](feeder: Feeder[T]) extends FeederBuilder[T] {
 }
 
 case class RecordSeqFeederBuilder[T](
-    records: IndexedSeq[Record[T]],
+    records: Seq[Record[T]],
     // [fl]
     //
     // [fl]

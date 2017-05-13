@@ -47,7 +47,7 @@ trait FeederSupport {
   def jsonFile(resource: Validation[Resource])(implicit jsonParsers: JsonParsers): RecordSeqFeederBuilder[Any] =
     feederBuilder(resource)(new JsonFeederFileParser().parse)
 
-  def feederBuilder[T](resource: Validation[Resource])(recordParser: Resource => IndexedSeq[Record[T]]): RecordSeqFeederBuilder[T] =
+  def feederBuilder[T](resource: Validation[Resource])(recordParser: Resource => Seq[Record[T]]): RecordSeqFeederBuilder[T] =
     resource match {
       case Success(res)     => RecordSeqFeederBuilder(recordParser(res))
       case Failure(message) => throw new IllegalArgumentException(s"Could not locate feeder file: $message")
