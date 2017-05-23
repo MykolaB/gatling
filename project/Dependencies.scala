@@ -9,13 +9,13 @@ object Dependencies {
   private def scalaReflect(version: String) = "org.scala-lang"                         % "scala-reflect"                 % version
   private val scalaSwing                    = "org.scala-lang.modules"                %% "scala-swing"                   % "2.0.0"
   private val scalaXml                      = "org.scala-lang.modules"                %% "scala-xml"                     % "1.0.6"
-  private val scalaParserCombinators        = "org.scala-lang.modules"                %% "scala-parser-combinators"      % "1.0.5"
+  private val scalaParserCombinators        = "org.scala-lang.modules"                %% "scala-parser-combinators"      % "1.0.6"
   private val java8Compat                   = "org.scala-lang.modules"                %% "scala-java8-compat"            % "0.8.0"
-  private val ahc                           = "org.asynchttpclient"                    % "async-http-client"             % "2.1.0-alpha17"
+  private val ahc                           = "org.asynchttpclient"                    % "async-http-client"             % "2.1.0-alpha18"
   private val ahcNettyUtils                 = "org.asynchttpclient"                    % "async-http-client-netty-utils" % ahc.revision
-  private val netty                         = "io.netty"                               % "netty-codec-http"              % "4.1.10.Final"
+  private val netty                         = "io.netty"                               % "netty-codec-http"              % "4.1.11.Final"
   private val nettyNativeTransport          = "io.netty"                               % "netty-transport-native-epoll"  % netty.revision classifier "linux-x86_64"
-  private val akkaActor                     = "com.typesafe.akka"                     %% "akka-actor"                    % "2.5.0"
+  private val akkaActor                     = "com.typesafe.akka"                     %% "akka-actor"                    % "2.5.1"
   private val akkaSlf4j                     = "com.typesafe.akka"                     %% "akka-slf4j"                    % akkaActor.revision
   private val config                        = "com.typesafe"                           % "config"                        % "1.3.1"
   private val saxon                         = "net.sf.saxon"                           % "Saxon-HE"                      % "9.7.0-18"
@@ -35,7 +35,7 @@ object Dependencies {
   private val logback                       = "ch.qos.logback"                         % "logback-classic"               % "1.2.3"
   private val tdigest                       = "com.tdunning"                           % "t-digest"                      % "3.1"
   private val hdrHistogram                  = "org.hdrhistogram"                       % "HdrHistogram"                  % "2.1.9"
-  private val caffeine                      = "com.github.ben-manes.caffeine"          % "caffeine"                      % "2.4.0"
+  private val caffeine                      = "com.github.ben-manes.caffeine"          % "caffeine"                      % "2.5.0"
   private val bouncycastle                  = "org.bouncycastle"                       % "bcpkix-jdk15on"                % "1.56"
   private val quicklens                     = "com.softwaremill.quicklens"            %% "quicklens"                     % "1.4.8"
   private val testInterface                 = "org.scala-sbt"                          % "test-interface"                % "1.0"
@@ -53,7 +53,9 @@ object Dependencies {
   private val activemqCore                   = "org.apache.activemq"                    % "activemq-broker"              % "5.14.5"            % "test"
   private val h2                             = "com.h2database"                         % "h2"                           % "1.4.194"           % "test"
   private val ffmq                           = "net.timewalker.ffmq"                    % "ffmq3-core"                   % "3.0.7"             % "test" exclude("log4j", "log4j") exclude("javax.jms", "jms")
-  private val jmh                            = "org.openjdk.jmh"                        % "jmh-core"                     % "1.18"
+  private val jmh                            = "org.openjdk.jmh"                        % "jmh-core"                     % "1.19"
+  private val apacheCommons                  = "org.apache.commons"                     % "commons-lang3"                % "3.5"
+
 
   private val loggingDeps = Seq(slf4jApi, scalaLogging, logback)
   private val testDeps = Seq(scalaTest, scalaCheck, akkaTestKit, mockitoCore)
