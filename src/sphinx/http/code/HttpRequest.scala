@@ -205,6 +205,7 @@ class HttpRequest {
     http("Request with form")
       .post("myUrl")
       .form("${theForm}")
+      .form("${theForm}", Set("excludedFieldName1", "excludedFieldName2"))
       .formParam("fieldToOverride", "newValue")
     //#form
 

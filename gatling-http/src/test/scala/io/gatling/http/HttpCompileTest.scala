@@ -130,6 +130,7 @@ class HttpCompileTest extends Simulation {
     // form
     .exec(http("Request").post("/")
       .form("${theForm}")
+      .form("${theForm}", excludes = Set("inputName1", "inputName2"))
       .formParam("baz", "${qix}")
       .multivaluedFormParam("foo", Seq("bar")))
     .exec(http("Request").post("/").multivaluedFormParam("foo", "${bar}"))

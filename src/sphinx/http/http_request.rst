@@ -285,6 +285,7 @@ The method ``formParam`` can also take directly an `HttpParam` instance, if you 
 Typically used after capturing a whole form with a ``form`` check.
 
 You can override the form field values with the ``formParam`` and the likes.
+This method takes an optional second parameter which is a Set of input names to be excluded/filtered out.
 
 .. note:: Gatling will automatically set the `Content-Type` header for you if you didn't specify one.
           It will use `application/x-www-form-urlencoded` except if there's also some body parts, in which case it will set `multipart/form-data`.
