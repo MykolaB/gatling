@@ -69,7 +69,7 @@ object Dependencies {
     Seq(scalaReflect(scalaVersion), config, fastring, boopickle, quicklens, java8Compat, ahcNettyUtils, pebble) ++ loggingDeps ++ testDeps
 
   val coreDependencies =
-    Seq(akkaActor, akkaSlf4j, jacksonCsv, boopickle, java8Compat, caffeine, scalaParserCombinators, scopt, findbugs) ++
+    Seq(akkaActor, akkaSlf4j, jacksonCsv, boopickle, java8Compat, caffeine, scalaParserCombinators, scopt, findbugs, apacheCommons) ++
       parserDeps ++ testDeps
 
   val redisDependencies = redisClient +: testDeps

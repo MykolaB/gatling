@@ -4,7 +4,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import org.apache.commons.lang3.StringUtils
 
-class SampleSimulation extends Simulation {
+class TestLargeStringSimulation extends Simulation {
 
   val httpProtocol = http
     .baseURL("http://localhost:8002")
