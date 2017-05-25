@@ -24,8 +24,8 @@ import io.gatling.core.controller.inject.InjectionSupport
 import io.gatling.core.controller.throttle.ThrottlingSupport
 import io.gatling.core.feeder.FeederSupport
 import io.gatling.core.pause.PauseSupport
-import io.gatling.core.session.{Expression, Session}
-import io.gatling.core.structure.{ScenarioBuilder, StructureSupport}
+import io.gatling.core.session.{ Expression, Session }
+import io.gatling.core.structure.{ ScenarioBuilder, StructureSupport }
 import io.gatling.core.util.GatlingStringUtils
 
 trait CoreDsl extends StructureSupport
