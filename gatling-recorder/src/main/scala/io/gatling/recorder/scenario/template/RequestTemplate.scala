@@ -25,7 +25,7 @@ import com.dongxiguo.fastring.Fastring.Implicits._
 private[scenario] object RequestTemplate {
 
   val BuiltInHttpMethods = List("GET", "PUT", "PATCH", "HEAD", "DELETE", "OPTIONS", "POST")
-  val MaxLiteralSize = 10
+  val MaxLiteralSize = 65534
 
   def headersBlockName(id: Int) = fast"headers_$id"
 
