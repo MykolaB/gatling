@@ -16,7 +16,6 @@
 package io.gatling.core
 
 import scala.concurrent.duration._
-
 import io.gatling.core.assertion.AssertionSupport
 import io.gatling.core.body.BodyProcessors
 import io.gatling.core.check.CheckSupport
@@ -25,8 +24,9 @@ import io.gatling.core.controller.inject.InjectionSupport
 import io.gatling.core.controller.throttle.ThrottlingSupport
 import io.gatling.core.feeder.FeederSupport
 import io.gatling.core.pause.PauseSupport
-import io.gatling.core.session.{ Expression, Session }
-import io.gatling.core.structure.{ ScenarioBuilder, StructureSupport }
+import io.gatling.core.session.{Expression, Session}
+import io.gatling.core.structure.{ScenarioBuilder, StructureSupport}
+import io.gatling.core.util.GatlingStringUtils
 
 trait CoreDsl extends StructureSupport
     with PauseSupport
@@ -42,6 +42,10 @@ trait CoreDsl extends StructureSupport
   def streamBody(implicit configuration: GatlingConfiguration) = BodyProcessors.stream
 
   def scenario(scenarioName: String): ScenarioBuilder = ScenarioBuilder(scenarioName.replaceAll("[\r\n\t]", " "))
+
+  def joinStrings(strings: String*): String = {
+    GatlingStringUtils.join(strings)
+  }
 
   def WhiteList(patterns: String*) = io.gatling.core.filter.WhiteList(patterns.toList)
 

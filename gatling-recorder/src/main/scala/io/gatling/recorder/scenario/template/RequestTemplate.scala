@@ -20,12 +20,12 @@ import io.gatling.http.util.HttpHelper.OkCodes
 import io.gatling.recorder.config.RecorderConfiguration
 import io.gatling.recorder.scenario.{ RequestBodyBytes, RequestBodyParams }
 import io.gatling.recorder.scenario.{ RequestElement, ScenarioExporter }
-
 import com.dongxiguo.fastring.Fastring.Implicits._
 
 private[scenario] object RequestTemplate {
 
   val BuiltInHttpMethods = List("GET", "PUT", "PATCH", "HEAD", "DELETE", "OPTIONS", "POST")
+  val MaxLiteralSize = 10
 
   def headersBlockName(id: Int) = fast"headers_$id"
 
@@ -51,10 +51,12 @@ private[scenario] object RequestTemplate {
         }.getOrElse("")
 
       def renderLongString(value: String) =
-        if (value.nonEmpty)
-          value.grouped(65535).map(protectWithTripleQuotes).mkFastring(" + ")
-        else
-          protectWithTripleQuotes("")
+        if (value.size > MaxLiteralSize) {
+          wrapLongString(value.grouped(MaxLiteralSize).map(protectWithTripleQuotes).mkFastring(", "))
+        } else
+          protectWithTripleQuotes(value)
+
+      def wrapLongString(value: Fastring) = "joinStrings(" + value + ")"
 
       def renderBodyOrParams: Fastring = request.body.map {
         case RequestBodyBytes(_) => fast"""
