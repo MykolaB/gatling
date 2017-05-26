@@ -54,7 +54,6 @@ object Dependencies {
   private val h2                             = "com.h2database"                         % "h2"                           % "1.4.194"           % "test"
   private val ffmq                           = "net.timewalker.ffmq"                    % "ffmq3-core"                   % "3.0.7"             % "test" exclude("log4j", "log4j") exclude("javax.jms", "jms")
   private val jmh                            = "org.openjdk.jmh"                        % "jmh-core"                     % "1.19"
-  private val jmh                            = "org.openjdk.jmh"                        % "jmh-core"                     % "1.19"
   private val apacheCommons                  = "org.apache.commons"                     % "commons-lang3"                % "3.5"
 
 
