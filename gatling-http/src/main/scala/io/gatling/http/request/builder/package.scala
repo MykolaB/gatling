@@ -21,7 +21,7 @@ import scala.annotation.tailrec
 import scala.collection.JavaConverters._
 
 import io.gatling.commons.validation._
-import io.gatling.core.session.{ Expression, Session }
+import io.gatling.core.session.Session
 
 import org.asynchttpclient.Param
 
@@ -31,7 +31,7 @@ package object builder {
 
   implicit class HttpParams(val params: List[HttpParam]) extends AnyVal {
 
-    def mergeWithFormIntoParamJList(formMaybe: Option[Expression[Map[String, Seq[String]]]], session: Session): Validation[JList[Param]] = {
+    def mergeWithFormIntoParamJList(formMaybe: Option[HttpForm], session: Session): Validation[JList[Param]] = {
 
       val formParams = params.resolveParamJList(session)
 
@@ -39,10 +39,10 @@ package object builder {
         case Some(form) =>
           for {
             resolvedFormParams <- formParams
-            resolvedForm <- form(session)
+            resolvedForm <- form.data(session)
           } yield {
             val formParamsByName = resolvedFormParams.asScala.groupBy(_.getName)
-            val formFieldsByName = resolvedForm.map { case (key, values) => key -> values.map(value => new Param(key, value)) }
+            val formFieldsByName = resolvedForm.collect { case (key, values) if !form.excludes.contains(key) => key -> values.map(value => new Param(key, value)) }
             // override form with formParams
             val javaParams: JList[Param] = (formFieldsByName ++ formParamsByName).values.flatten.toSeq.asJava
             javaParams
