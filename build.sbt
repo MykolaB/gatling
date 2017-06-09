@@ -83,6 +83,10 @@ lazy val recorder = gatlingModule("gatling-recorder")
   .dependsOn(core % "compile->compile;test->test", http)
   .settings(libraryDependencies ++= recorderDependencies)
 
+lazy val rest = gatlingModule("gatling-rest")
+  .dependsOn(core % "compile->compile;test->test", http)
+  .settings(libraryDependencies ++= recorderDependencies)
+
 lazy val testFramework = gatlingModule("gatling-test-framework")
   .dependsOn(app)
   .settings(libraryDependencies ++= testFrameworkDependencies)

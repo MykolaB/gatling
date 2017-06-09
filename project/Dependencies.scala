@@ -91,6 +91,8 @@ object Dependencies {
 
   val recorderDependencies = Seq(scalaSwing, jackson, bouncycastle, netty, akkaActor) ++ testDeps
 
+  val restDependencies = testDeps
+
   val testFrameworkDependencies = Seq(testInterface)
 
   val docDependencies = Seq(ffmq)
