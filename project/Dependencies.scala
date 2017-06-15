@@ -24,7 +24,6 @@ object Dependencies {
   private val scopt                         = "com.github.scopt"                      %% "scopt"                         % "3.5.0"
   private val scalaLogging                  = "com.typesafe.scala-logging"            %% "scala-logging"                 % "3.5.0"
   private val jackson                       = "com.fasterxml.jackson.core"             % "jackson-databind"              % "2.8.8.1"
-  private val jacksonScala                  = "com.fasterxml.jackson.module"           % "jackson-module-scala"          % "2.1.2"
   private val jacksonCsv                    = "com.fasterxml.jackson.dataformat"       % "jackson-dataformat-csv"        % "2.8.8"
   private val boon                          = "io.advantageous.boon"                   % "boon-json"                     % "0.6.6" exclude("org.slf4j", "slf4j-api")
   private val jsonpath                      = "io.gatling"                            %% "jsonpath"                      % "0.6.9"
@@ -92,7 +91,7 @@ object Dependencies {
 
   val recorderDependencies = Seq(scalaSwing, jackson, bouncycastle, netty, akkaActor) ++ testDeps
 
-  val restDependencies = Seq(jackson, jacksonScala) ++ testDeps
+  val restDependencies = boon +: testDeps
 
   val testFrameworkDependencies = Seq(testInterface)
 
