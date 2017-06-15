@@ -12,7 +12,6 @@ class SwaggerParserSpec extends BaseSpec with ValidationValues {
   val parser = new SwaggerParser()
 
   val spectText = fromInputStream(getClass.getClassLoader.getResourceAsStream("SwaggerExample.json")).mkString
-  //getClass.getClassLoader.getResource("sitemap.xml")
 
   "SwaggerParser" should "extract attributes" in {
     val spec = parser.parse(spectText)
