@@ -3,7 +3,13 @@ package io.gatling.rest.swagger
 /**
   * Created by mykbiletskyi on 09.06.2017.
   */
-object SwaggerNodeType extends Enumeration {
-  type SwaggerNodeType = Value
-  val TITLE, DESCRIPTION = Value
+sealed trait SwaggerNodeType {
+
+}
+
+
+object SwaggerNodeType {
+  case object Description extends SwaggerNodeType
+
+  case object Title extends SwaggerNodeType
 }
